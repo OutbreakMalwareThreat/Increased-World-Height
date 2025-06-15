@@ -1,6 +1,7 @@
 # Increased World Height
 Increased World Height Mod By OMT aka Gisus Cryst
-This Mod Increases The World Height to 4000+ Blocks
+
+## This Mod Increases The World Height to 4000+ Blocks
 
 Modrinth : https://modrinth.com/mod/increased-world-height
 
