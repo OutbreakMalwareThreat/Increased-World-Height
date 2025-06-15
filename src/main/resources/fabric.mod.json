@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "increased-world-height",
+	"version": "${version}",
+	"name": "Increased World Height",
+	"description": "Increases The World Height Way Beyond 2032",
+	"authors": [
+		"OMT A.K.A Gisus Cryst"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/increased-world-height/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.example.IncreasedWorldHeight"
+		],
+		"client": [
+			"com.example.IncreasedWorldHeightClient"
+		]
+	},
+	"mixins": [
+		"increased-world-height.mixins.json",
+		{
+			"config": "increased-world-height.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
