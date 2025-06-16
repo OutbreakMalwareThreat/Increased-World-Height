@@ -4,7 +4,9 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"DimensionTypeBuilderMixin",
-		"DimensionTypeMixin"
+		"DimensionTypeMixin",
+		"NoiseGeneratorSettingsMixin",
+		"NoiseSettingsOverrideMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

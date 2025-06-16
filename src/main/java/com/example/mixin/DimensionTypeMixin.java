@@ -6,37 +6,24 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = DimensionType.class, priority = 1500)
+@Mixin(value = DimensionType.class, priority = 2000)
 public class DimensionTypeMixin {
 
 	@Inject(method = "minY", at = @At("RETURN"), cancellable = true)
-	private void expandMinY(CallbackInfoReturnable<Integer> cir) {
-		int originalMinY = cir.getReturnValue();
-		// Only expand if the original minY is reasonable and greater than our target
-		if (originalMinY > -4096 && originalMinY >= -320) {
-			cir.setReturnValue(-4096);
-		}
+	private void overrideMinY(CallbackInfoReturnable<Integer> cir) {
+		// FORCE override - always set to -4096 regardless of JJThunder's settings
+		cir.setReturnValue(-4096);
 	}
 
 	@Inject(method = "height", at = @At("RETURN"), cancellable = true)
-	private void expandHeight(CallbackInfoReturnable<Integer> cir) {
-		int originalHeight = cir.getReturnValue();
-		// Validate the original height is reasonable
-		if (originalHeight > 0 && originalHeight <= 2048) {
-			// Calculate what height we need to reach Y=4096 from minY=-4096
-			int targetHeight = 8192;
-			if (originalHeight < targetHeight) {
-				cir.setReturnValue(targetHeight);
-			}
-		}
+	private void overrideHeight(CallbackInfoReturnable<Integer> cir) {
+		// FORCE override - always set to 8193 for Y=4096 max regardless of JJThunder
+		cir.setReturnValue(8193);
 	}
 
 	@Inject(method = "logicalHeight", at = @At("RETURN"), cancellable = true)
-	private void expandLogicalHeight(CallbackInfoReturnable<Integer> cir) {
-		int originalLogicalHeight = cir.getReturnValue();
-		// Keep logical height reasonable and in sync
-		if (originalLogicalHeight > 0 && originalLogicalHeight <= 2048) {
-			cir.setReturnValue(8192);
-		}
+	private void overrideLogicalHeight(CallbackInfoReturnable<Integer> cir) {
+		// FORCE override - keep logical height in sync
+		cir.setReturnValue(8193);
 	}
 }

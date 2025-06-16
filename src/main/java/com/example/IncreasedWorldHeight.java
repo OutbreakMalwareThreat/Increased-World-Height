@@ -14,7 +14,8 @@ public class IncreasedWorldHeight implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Increased World Height mod initialized!");
-		LOGGER.info("Compatible with ReTerraforged and other terrain generation mods");
+		LOGGER.info("OVERRIDING JJThunder To The Max and other terrain generation height limits");
+		LOGGER.info("Forcing world height expansion to Y=-4096 to Y=4096");
 
 		// Register world load event to show expanded dimensions
 		ServerWorldEvents.LOAD.register((server, world) -> {
@@ -28,12 +29,21 @@ public class IncreasedWorldHeight implements ModInitializer {
 						world.getRegistryKey().getValue(),
 						minY, maxY, height);
 
-				if (minY <= -4096 && maxY >= 4095) {
-					LOGGER.info("✓ Successfully expanded height range!");
-				} else if (minY >= -320 && height <= 2048) {
-					LOGGER.info("→ Standard dimension detected, height expansion applied");
+				if (minY <= -4096 && maxY >= 4096) {
+					LOGGER.info("✓ Successfully OVERRODE height limits - Forced expansion active!");
+					LOGGER.info("✓ JJThunder mountains can now reach full 4096 height limit");
+					LOGGER.info("✓ All terrain generation forced to use expanded range");
 				} else {
-					LOGGER.info("→ Custom dimension preserved (no modification needed)");
+					LOGGER.warn("⚠ Height override may not have taken effect completely");
+					LOGGER.warn("⚠ Current range: {} to {} - Expected: -4096 to 4096", minY, maxY);
+				}
+
+				// Special logging for JJThunder compatibility
+				if (maxY >= 2000) {
+					LOGGER.info("✓ JJThunder To The Max: Sufficient height for 2000-block mountains");
+				}
+				if (minY <= -512) {
+					LOGGER.info("✓ JJThunder To The Max: Enhanced cave depth for 'The Underlands'");
 				}
 			} catch (Exception e) {
 				LOGGER.warn("Could not check dimension height for world: {}",
